@@ -49,6 +49,7 @@ jobs:
       - name: 设置登录密码
         if: env.HAS_TOKEN == 'true'
         env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           AUTH_PASSWORD: ${{ secrets.AUTH_PASSWORD }}
         run: |
           printf '%s' "$AUTH_PASSWORD" | npx wrangler secret put AUTH_PASSWORD --config wrangler.ci.toml
