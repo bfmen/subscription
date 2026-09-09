@@ -45,3 +45,10 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           wranglerVersion: '4.110.0'
           command: deploy --config wrangler.ci.toml
+          
+      - name: 设置登录密码
+        if: env.HAS_TOKEN == 'true'
+        env:
+          AUTH_PASSWORD: ${{ secrets.AUTH_PASSWORD }}
+        run: |
+          printf '%s' "$AUTH_PASSWORD" | npx wrangler secret put AUTH_PASSWORD --config wrangler.ci.toml
